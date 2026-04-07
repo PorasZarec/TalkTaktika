@@ -1,10 +1,11 @@
-import "./index.css";
-import { ThemeTest } from "./components/ThemeTest";
-
-export default function App() {
+function App() {
   return (
-    <div data-theme="talktaktikaTheme" className="min-h-screen bg-base-200 p-8">
-      <ThemeTest />
-    </div>
+    <>
+      <h1 className="text-3xl font-bold underline text-red-600">
+        Hello world!
+      </h1>
+    </>
   );
 }
+
+export default App;

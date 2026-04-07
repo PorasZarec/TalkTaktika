@@ -2,27 +2,33 @@ import express from "express";
 import { createServer } from "http";
 import cors from "cors";
 import { initializeSocket } from "./socket";
+import dotenv from "dotenv";
+import { connectDB } from "./config/db";
+import authRoutes from "./routes/auth";
+
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Allow the React frontend to communicate with this server
+connectDB();
+
 app.use(cors({
   origin: "http://localhost:3000",
-  methods: ["GET", "POST"]
+  methods: ["GET", "POST", "PUT", "DELETE"]
 }));
 
-// Create the raw HTTP server so Socket.io can attach to it
-const httpServer = createServer(app);
+app.use(express.json());
 
-// Initialize our modular game logic
+app.use("/api/auth", authRoutes);
+
+const httpServer = createServer(app);
 initializeSocket(httpServer);
 
-// Basic health check route
 app.get("/api/health", (req, res) => {
-  res.json({ status: "ok", message: "Articulate PH server is running!" });
+  res.json({ status: "ok", message: "server is running!" });
 });
 
 httpServer.listen(PORT, () => {
-  console.log(`🚀 Game Server running on http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
