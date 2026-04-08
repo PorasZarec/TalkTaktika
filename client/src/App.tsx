@@ -1,10 +1,20 @@
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import LoginPage from "@/pages/Login";
+import Dashboard from "@/pages/Dashboard";
+
 function App() {
   return (
-    <>
-      <h1 className="text-3xl font-bold underline text-red-600">
-        Hello world!
-      </h1>
-    </>
+    <Routes>
+      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="*" element={<Navigate to="/login" replace />} />
+    </Routes>
   );
 }
 
