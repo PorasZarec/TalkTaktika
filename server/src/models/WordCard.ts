@@ -1,20 +1,32 @@
-import mongoose from "mongoose";
+// server/src/models/WordCard.ts
+import mongoose, { Schema, Document } from 'mongoose';
 
-const wordCardSchema = new mongoose.Schema({
-  word: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  category: {
-    type: String,
-    required: true,
-    enum: ["Chika", "Mga Lugar", "Pagkain", "Kasaysayan", "Mga Bagay", "Random"],
-  },
-  isActive: {
-    type: Boolean,
-    default: true,
-  }
-}, { timestamps: true });
+export interface IWordCard extends Document {
+  word: string;
+  category: 'Tao' | 'Lugar' | 'Bagay' | 'Aksyon' | 'Kalikasan' | 'Halo-halo';
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
-export const WordCard = mongoose.model("WordCard", wordCardSchema);
+const WordCardSchema: Schema = new Schema(
+  {
+    word: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    category: {
+      type: String,
+      required: true,
+      enum: ['Tao', 'Lugar', 'Bagay', 'Aksyon', 'Kalikasan', 'Halo-halo'],
+    },
+    isActive: {
+      type: Boolean,
+      default: true
+    },
+  },
+  { timestamps: true }
+);
+
+export default mongoose.model<IWordCard>('WordCard', WordCardSchema);

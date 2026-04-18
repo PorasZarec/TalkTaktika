@@ -8,6 +8,7 @@ import { RoomManager } from "./managers/RoomManager.js";
 import { registerSocketHandlers } from "./sockets/socketHandlers.js";
 import { connectDB } from "./config/db.js";
 import userRoutes from "./routes/user.routes.js";
+import wordCardRoutes from "./routes/wordCardRoutes.js";
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ app.use(express.json());
 
 // Register API Routes
 app.use("/api/users", userRoutes);
+app.use("/api/cards", wordCardRoutes);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("TalkTaktika Socket.io Backend MVP Running");
